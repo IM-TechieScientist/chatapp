@@ -11,6 +11,7 @@ class ChatBubble extends StatelessWidget {
   final String messageId;
   final String userId;
   final Function(String, String) onReply;
+  final String? quotedMessageText;
 
   ChatBubble({
     super.key,
@@ -19,6 +20,7 @@ class ChatBubble extends StatelessWidget {
     required this.messageId,
     required this.userId,
     required this.onReply,
+    this.quotedMessageText,
   });
 
   final DateHelper _dateHelper = DateHelper();
@@ -234,13 +236,13 @@ class ChatBubble extends StatelessWidget {
           crossAxisAlignment:
               isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
-            if (data['quotedMessageText'] != null)
+            if (quotedMessageText != null)
               Container(
                 padding: const EdgeInsets.all(8.0),
                 margin: const EdgeInsets.only(bottom: 4.0),
                 color: Colors.grey[200],
                 child: Text(
-                  'Replying to: ${data['quotedMessageText']}',
+                  'Replying to: $quotedMessageText',
                   style: TextStyle(color: Colors.grey[600]),
                 ),
               ),

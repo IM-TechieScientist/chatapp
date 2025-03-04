@@ -80,9 +80,11 @@ class _ChatPageState extends State<ChatPage> {
 
   void clearInput() {
     _messageController.clear();
-    _quotedMessageId = null;
-    _quotedMessageText = null;
-    _isCode = false;
+    setState(() {
+      _quotedMessageId = null;
+      _quotedMessageText = null;
+      _isCode = false;
+    });
   }
 
   void sendMessage() async {
@@ -92,8 +94,6 @@ class _ChatPageState extends State<ChatPage> {
         message = '```$message```';
       }
 
-      clearInput();
-
       await _chatService.sendMessage(
         widget.receiverID,
         message,
@@ -101,6 +101,7 @@ class _ChatPageState extends State<ChatPage> {
         quotedMessageText: _quotedMessageText,
       );
 
+      clearInput();
       scrollDown();
     }
   }
@@ -191,6 +192,7 @@ class _ChatPageState extends State<ChatPage> {
             messageId: doc.id,
             userId: data["senderID"],
             onReply: selectMessageToReply,
+            quotedMessageText: data['quotedMessageText'],
           ),
         ],
       ),
