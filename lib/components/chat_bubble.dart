@@ -222,12 +222,12 @@ class ChatBubble extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               margin: const EdgeInsets.only(bottom: 4.0),
               decoration: BoxDecoration(
-                color: Colors.grey[400],
+                color: Color(0xFF1b263b),
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Text(
                 'Replying to: $quotedMessageText',
-                style: TextStyle(color: Colors.grey[900]),
+                style: TextStyle(color: Colors.grey[400]),
               ),
               ),
             if (data["message"].startsWith("```") && data["message"].endsWith("```"))
