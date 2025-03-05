@@ -31,20 +31,28 @@ class ChatDrawer extends StatelessWidget {
         children: [
           Column(
             children: [
-              DrawerHeader(
-                child: Center(
-                  child: Icon(
-                    Icons.mood,
+                Padding(
+                padding: const EdgeInsets.only(left: 5.0, top: 50.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0,top: 20.0,bottom: 20.0),
+                  child: Text(
+                    "Menu",
+                    style: TextStyle(
                     color: Theme.of(context).colorScheme.tertiary,
-                    size: 50,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   ),
                 ),
-              ),
+                ),
               Padding(
-                padding: const EdgeInsets.only(left: 25.0),
+                padding: const EdgeInsets.only(left: 5.0),
                 child: ListTile(
                   title: ChatText(
-                    text: 'chats',
+                    text: 'Chats',
                     size: 18,
                     fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.tertiary,
@@ -65,10 +73,10 @@ class ChatDrawer extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 25.0),
+                padding: const EdgeInsets.only(left: 5.0),
                 child: ListTile(
                   title: ChatText(
-                    text: 'settings',
+                    text: 'Settings',
                     size: 18,
                     fontWeight: FontWeight.w500,
                     color: Theme.of(context).colorScheme.tertiary,
@@ -94,8 +102,8 @@ class ChatDrawer extends StatelessWidget {
             padding: const EdgeInsets.only(left: 25.0, bottom: 25.0),
             child: ListTile(
               title: ChatText(
-                text: 'logout',
-                size: 18,
+                text: 'Logout',
+                size: 20,
                 fontWeight: FontWeight.w500,
                 color: Theme.of(context).colorScheme.tertiary,
               ),

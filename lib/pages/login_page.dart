@@ -42,19 +42,19 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(
-                Icons.mood,
+                Icons.messenger_outline,
                 size: 80,
                 color: Theme.of(context).colorScheme.tertiary,
               ),
               const SizedBox(height: 10),
               ChatText(
-                text: 'welcome back!',
+                text: 'Hey there!',
                 size: 25,
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).colorScheme.tertiary,
               ),
               ChatText(
-                text: "it's good to see you again.",
+                text: "Please Login",
                 size: 18,
                 fontWeight: FontWeight.normal,
                 color: Theme.of(context).colorScheme.tertiary,
@@ -62,21 +62,21 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 50),
               ChatTextField(
                 controller: _emailController,
-                hintText: 'your email',
+                hintText: 'Email',
                 obscureText: false,
                 padding: 0,
               ),
               const SizedBox(height: 20),
               ChatTextField(
                 controller: _passwordController,
-                hintText: 'your password',
+                hintText: 'Password',
                 obscureText: true,
                 padding: 0,
               ),
               const SizedBox(height: 20),
               ChatButton(
                 onTap: () => login(context),
-                label: 'login',
+                label: 'Login',
                 padding: 15,
                 margin: 0,
               ),
@@ -85,14 +85,14 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ChatText(
-                    text: 'not a member? ',
+                    text: 'Don\'t have an account?  ',
                     size: 15,
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                   GestureDetector(
                     onTap: onRegisterTap,
                     child: ChatText(
-                      text: 'not a member? ',
+                      text: ' Register',
                       size: 15,
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.tertiary,

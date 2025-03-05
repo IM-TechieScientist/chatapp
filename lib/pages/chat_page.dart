@@ -8,11 +8,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/scheduler.dart';
 
 class ChatPage extends StatefulWidget {
+  final String receiverName; // Add this field
   final String receiverEmail;
   final String receiverID;
 
   const ChatPage({
     super.key,
+    required this.receiverName, // Add this parameter
     required this.receiverEmail,
     required this.receiverID,
   });
@@ -113,13 +115,20 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).colorScheme.tertiary),
         title: Text(
-          widget.receiverEmail,
+          widget.receiverName, // Display the name
           style: GoogleFonts.poppins(
-            textStyle: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
+        textStyle: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: Theme.of(context).colorScheme.tertiary,
+        ),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1.0),
+          child: Container(
+        color: Colors.grey[600],
+        height: 1.0,
           ),
         ),
       ),
@@ -127,7 +136,7 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: Container(
-              margin: const EdgeInsets.all(10.0),
+              margin: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5.0,top:5.0),
               child: _buildMessageList(),
             ),
           ),
@@ -227,34 +236,50 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
         Row(
-          children: [
-            IconButton(
+            children: [
+            Container(
+              decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.secondary,
+              ),
+              child: IconButton(
               icon: Icon(
                 _isCode ? Icons.code_off : Icons.code,
                 color: Theme.of(context).colorScheme.tertiary,
               ),
               onPressed: () {
                 setState(() {
-                  _isCode = !_isCode;
+                _isCode = !_isCode;
                 });
               },
-            ),
-            Expanded(
-              child: ChatTextField(
-                controller: _messageController,
-                hintText: "type a message",
-                obscureText: false,
-                focusNode: chatFocusNode,
               ),
             ),
-            const SizedBox(width: 5.0),
-            IconButton(
+            const SizedBox(width: 10.0),
+            Expanded(
+              child: ChatTextField(
+              controller: _messageController,
+              hintText: "Message @${widget.receiverName}",
+              obscureText: false,
+              focusNode: chatFocusNode,
+              ),
+            ),
+            const SizedBox(width: 10.0),
+            Container(
+              decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+              ),
+              child: IconButton(
               onPressed: sendMessage,
               icon: Icon(
                 Icons.arrow_upward,
                 color: Theme.of(context).colorScheme.tertiary,
               ),
+              ),
+  
             ),
+            const SizedBox(width: 5.0),
+
           ],
         ),
       ],

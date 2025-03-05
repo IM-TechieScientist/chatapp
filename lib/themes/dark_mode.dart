@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 ThemeData darkMode = ThemeData(
-  colorScheme: ColorScheme.light(
-    surface: Colors.black,
-    primary: Colors.grey.shade900,
-    secondary: Colors.grey.shade900,
-    tertiary: Colors.white,
-    tertiaryFixed: Colors.grey.shade900,
-    tertiaryContainer: Colors.grey.shade400,
-    inversePrimary: Colors.grey.shade500,
+  colorScheme: ColorScheme.dark(
+    surface: Color(0xFF36393F), // Discord dark background
+    primary: Color(0xFF2C2F33), // Discord dark primary
+    secondary:Color.fromARGB(255, 85, 93, 101) , // Discord blurple
+    tertiary: Color(0xFFFFFFFF), // White text
+    tertiaryFixed: Color(0xFF2C2F33), // Discord dark primary
+    tertiaryContainer: Color(0xFF5865F2), // Discord dark container
+    inversePrimary: Color.fromARGB(255, 255, 255, 255), // Discord dark text
   ),
 );

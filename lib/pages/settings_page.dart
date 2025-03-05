@@ -1,6 +1,6 @@
 import 'package:chat_app/components/chat_drawer.dart';
 import 'package:chat_app/components/chat_text.dart';
-import 'package:chat_app/pages/blocked_users_page.dart';
+// import 'package:chat_app/pages/blocked_users_page.dart';
 import 'package:chat_app/themes/theme_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +16,8 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).colorScheme.tertiary),
         title: ChatText(
-          text: 'settings',
-          size: 18,
+          text: 'Settings',
+          size: 20,
           fontWeight: FontWeight.w600,
           color: Theme.of(context).colorScheme.tertiary,
         ),
@@ -47,13 +47,13 @@ class SettingsOptions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ChatText(
-                    text: 'light mode',
+                    text: 'Light mode',
                     size: 18,
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.tertiary,
                   ),
                   ChatText(
-                    text: 'enables or disables the light mode in the app',
+                    text: 'If you wanna flashbang yourself',
                     size: 12,
                     fontWeight: FontWeight.w600,
                     color: Theme.of(context).colorScheme.inversePrimary,
@@ -73,41 +73,41 @@ class SettingsOptions extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 30.0),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ChatText(
-                    text: 'blocked users',
-                    size: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                  ChatText(
-                    text: 'check the users you blocked',
-                    size: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                  ),
-                ],
-              ),
-              IconButton(
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BlockedUsersPage(),
-                  ),
-                ),
-                icon: Icon(
-                  Icons.arrow_forward_ios,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-              )
-            ],
-          ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         ChatText(
+          //           text: 'blocked users',
+          //           size: 18,
+          //           fontWeight: FontWeight.w600,
+          //           color: Theme.of(context).colorScheme.tertiary,
+          //         ),
+          //         ChatText(
+          //           text: 'check the users you blocked',
+          //           size: 12,
+          //           fontWeight: FontWeight.w600,
+          //           color: Theme.of(context).colorScheme.inversePrimary,
+          //         ),
+          //       ],
+          //     ),
+          //     IconButton(
+          //       onPressed: () => Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => BlockedUsersPage(),
+          //         ),
+          //       ),
+          //       icon: Icon(
+          //         Icons.arrow_forward_ios,
+          //         color: Theme.of(context).colorScheme.tertiary,
+          //       ),
+          //     )
+          //   ],
+          // ),
         ],
       ),
     );

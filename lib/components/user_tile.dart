@@ -18,7 +18,7 @@ class UserTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: Container(
           height: 55,
           decoration: BoxDecoration(
@@ -36,18 +36,12 @@ class UserTile extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 6),
                     ChatText(
                       text: userName,
-                      size: 15,
+                      size: 22,
                       fontWeight: FontWeight.w600,
                       color: Theme.of(context).colorScheme.tertiary,
-                    ),
-                    const SizedBox(height: 1.0),
-                    ChatText(
-                      text: userEmail,
-                      size: 10,
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).colorScheme.inversePrimary,
                     ),
                   ],
                 ),

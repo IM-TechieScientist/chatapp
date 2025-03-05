@@ -19,8 +19,8 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Theme.of(context).colorScheme.tertiary),
         title: ChatText(
-          text: 'chats',
-          size: 18,
+          text: 'Your Chats',
+          size: 24,
           fontWeight: FontWeight.w600,
           color: Theme.of(context).colorScheme.tertiary,
         ),
@@ -45,18 +45,12 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 5.0),
               ChatText(
-                text: 'an error ocurred',
+                text: 'An Error Ocurred',
                 size: 18,
                 fontWeight: FontWeight.w700,
                 color: Theme.of(context).colorScheme.tertiary,
               ),
-              const SizedBox(height: 2.0),
-              ChatText(
-                text: "sorry for that. please, try again",
-                size: 15,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.tertiary,
-              )
+
             ]),
           );
         }
@@ -84,18 +78,12 @@ class HomePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 5.0),
                 ChatText(
-                  text: 'no users found',
+                  text: 'No Users',
                   size: 18,
                   fontWeight: FontWeight.w700,
                   color: Theme.of(context).colorScheme.tertiary,
                 ),
                 const SizedBox(height: 2.0),
-                ChatText(
-                  text: "don't be shy... start by adding some users!",
-                  size: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.tertiary,
-                )
               ],
             ),
           );
@@ -121,8 +109,9 @@ class HomePage extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
-                receiverEmail: userData["email"],
+                receiverName: userData["name"],
                 receiverID: userData["uid"],
+                receiverEmail: userData["email"],
               ),
             ),
           );
