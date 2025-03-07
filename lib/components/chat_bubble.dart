@@ -1,6 +1,6 @@
 import 'package:chat_app/components/chat_text.dart';
 import 'package:chat_app/helpers/date_helper.dart';
-// import 'package:chat_app/services/chat/chat_service.dart';
+import 'package:chat_app/models/reaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_highlight/flutter_highlight.dart';
 
@@ -11,6 +11,7 @@ class ChatBubble extends StatelessWidget {
   final String userId;
   final Function(String, String) onReply;
   final String? quotedMessageText;
+  final Function(String, String) onReact;
 
   ChatBubble({
     super.key,
@@ -19,6 +20,7 @@ class ChatBubble extends StatelessWidget {
     required this.messageId,
     required this.userId,
     required this.onReply,
+    required this.onReact,
     this.quotedMessageText,
   });
 
@@ -47,22 +49,54 @@ class ChatBubble extends StatelessWidget {
                   onReply(messageId, data['message']);
                 },
               ),
-              // ListTile(
-              //   leading: Icon(
-              //     Icons.block,
-              //     color: Theme.of(context).colorScheme.tertiary,
-              //   ),
-              //   title: ChatText(
-              //     text: 'Block user',
-              //     size: 15,
-              //     fontWeight: FontWeight.w500,
-              //     color: Theme.of(context).colorScheme.tertiary,
-              //   ),
-              //   onTap: () {
-              //     Navigator.pop(context);
-              //     _blockuser(context, userId);
-              //   },
-              // ),
+              ListTile(
+                leading: Icon(
+                  Icons.thumb_up,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                title: ChatText(
+                  text: 'Thumbs Up',
+                  size: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  onReact(messageId, '👍');
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.favorite,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                title: ChatText(
+                  text: 'Heart',
+                  size: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  onReact(messageId, '❤️');
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.emoji_emotions,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                title: ChatText(
+                  text: 'Joy',
+                  size: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  onReact(messageId, '😂');
+                },
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: Divider(
@@ -90,115 +124,13 @@ class ChatBubble extends StatelessWidget {
     );
   }
 
-  // void _reportMessage(BuildContext context, String messageId, String userId) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: ChatText(
-  //         text: 'report message',
-  //         size: 15,
-  //         fontWeight: FontWeight.w500,
-  //         color: Theme.of(context).colorScheme.surface,
-  //       ),
-  //       content: ChatText(
-  //         text: 'are you sure you want to report this message?',
-  //         size: 15,
-  //         fontWeight: FontWeight.w500,
-  //         color: Theme.of(context).colorScheme.surface,
-  //       ),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Navigator.pop(context),
-  //           child: ChatText(
-  //             text: 'no',
-  //             size: 15,
-  //             fontWeight: FontWeight.w500,
-  //             color: Theme.of(context).colorScheme.surface,
-  //           ),
-  //         ),
-  //         TextButton(
-  //           onPressed: () {
-  //             ChatService().reportUser(messageId, userId);
-  //             Navigator.pop(context);
-  //             ScaffoldMessenger.of(context).showSnackBar(
-  //               SnackBar(
-  //                 content: ChatText(
-  //                   text: 'message reported',
-  //                   size: 15,
-  //                   fontWeight: FontWeight.w500,
-  //                   color: Theme.of(context).colorScheme.tertiary,
-  //                 ),
-  //               ),
-  //             );
-  //           },
-  //           child: ChatText(
-  //             text: 'yes, report',
-  //             size: 15,
-  //             fontWeight: FontWeight.w500,
-  //             color: Theme.of(context).colorScheme.surface,
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // void _blockuser(BuildContext context, String userId) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (context) => AlertDialog(
-  //       title: ChatText(
-  //         text: 'block user',
-  //         size: 15,
-  //         fontWeight: FontWeight.w500,
-  //         color: Theme.of(context).colorScheme.surface,
-  //       ),
-  //       content: ChatText(
-  //         text: 'are you sure you want to block this user?',
-  //         size: 15,
-  //         fontWeight: FontWeight.w500,
-  //         color: Theme.of(context).colorScheme.surface,
-  //       ),
-  //       actions: [
-  //         TextButton(
-  //           onPressed: () => Navigator.pop(context),
-  //           child: ChatText(
-  //             text: 'no',
-  //             size: 15,
-  //             fontWeight: FontWeight.w500,
-  //             color: Theme.of(context).colorScheme.surface,
-  //           ),
-  //         ),
-  //         TextButton(
-  //           onPressed: () {
-  //             ChatService().blockUser(userId);
-  //             Navigator.pop(context); // FYI: Dismiss the dialog
-  //             ScaffoldMessenger.of(context).showSnackBar(
-  //               SnackBar(
-  //                 content: ChatText(
-  //                   text: 'user blocked',
-  //                   size: 15,
-  //                   fontWeight: FontWeight.w500,
-  //                   color: Theme.of(context).colorScheme.tertiary,
-  //                 ),
-  //               ),
-  //             );
-  //             Navigator.pop(context); // FYI: Dismiss the page
-  //           },
-  //           child: ChatText(
-  //             text: 'yes, block',
-  //             size: 15,
-  //             fontWeight: FontWeight.w500,
-  //             color: Theme.of(context).colorScheme.surface,
-  //           ),
-  //         )
-  //       ],
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
+    List<Reaction> reactions = (data['reactions'] as List<dynamic>?)
+            ?.map((reaction) => Reaction.fromMap(reaction))
+            .toList() ??
+        [];
+
     return GestureDetector(
       onLongPress: () {
         if (!isCurrentUser) {
@@ -210,7 +142,7 @@ class ChatBubble extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).colorScheme.secondary
+          color: Theme.of(context).colorScheme.secondary,
         ),
         margin: const EdgeInsets.only(bottom: 12.0),
         child: Column(
@@ -219,25 +151,26 @@ class ChatBubble extends StatelessWidget {
           children: [
             if (quotedMessageText != null)
               Container(
-              padding: const EdgeInsets.all(8.0),
-              margin: const EdgeInsets.only(bottom: 4.0),
-              decoration: BoxDecoration(
-                color: Color(0xFF1b263b),
-                borderRadius: BorderRadius.circular(8.0),
+                padding: const EdgeInsets.all(8.0),
+                margin: const EdgeInsets.only(bottom: 4.0),
+                decoration: BoxDecoration(
+                  color: Color(0xFF1b263b),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Text(
+                  'Replying to: $quotedMessageText',
+                  style: TextStyle(color: Colors.grey[400]),
+                ),
               ),
-              child: Text(
-                'Replying to: $quotedMessageText',
-                style: TextStyle(color: Colors.grey[400]),
-              ),
-              ),
-            if (data["message"].startsWith("```") && data["message"].endsWith("```"))
-                HighlightView(
+            if (data["message"].startsWith("```") &&
+                data["message"].endsWith("```"))
+              HighlightView(
                 data["message"].substring(3, data["message"].length - 3),
                 language: 'auto', // Auto-detect the language
                 theme: {
                   'root': TextStyle(
-                  backgroundColor: Colors.grey[900], // Dark background
-                  color: Colors.white, // Light text color
+                    backgroundColor: Colors.grey[900], // Dark background
+                    color: Colors.white, // Light text color
                   ),
                   'keyword': TextStyle(color: Colors.cyanAccent),
                   'string': TextStyle(color: Colors.greenAccent),
@@ -251,7 +184,7 @@ class ChatBubble extends StatelessWidget {
                   fontFamily: 'Courier',
                   fontSize: 12,
                 ),
-                )
+              )
             else
               ChatText(
                 text: data["message"],
@@ -264,8 +197,18 @@ class ChatBubble extends StatelessWidget {
               text: _dateHelper.formatDatetime(data["timestamp"].toDate()),
               size: 8,
               fontWeight: FontWeight.w300,
-              color:Theme.of(context).colorScheme.inversePrimary,
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
+            if (reactions.isNotEmpty)
+              Wrap(
+                spacing: 4.0,
+                children: reactions
+                    .map((reaction) => Text(
+                          reaction.emoji,
+                          style: TextStyle(fontSize: 20),
+                        ))
+                    .toList(),
+              ),
           ],
         ),
       ),

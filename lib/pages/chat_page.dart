@@ -1,5 +1,6 @@
 import 'package:chat_app/components/chat_bubble.dart';
 import 'package:chat_app/components/chat_text_field.dart';
+// import 'package:chat_app/models/reaction.dart';
 import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/services/chat/chat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -108,6 +109,11 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
+  void addReaction(String messageId, String emoji) async {
+    String senderId = _authService.getCurrentUser()!.uid;
+    await _chatService.addReaction(senderId, widget.receiverID, messageId, emoji);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,18 +123,18 @@ class _ChatPageState extends State<ChatPage> {
         title: Text(
           widget.receiverName, // Display the name
           style: GoogleFonts.poppins(
-        textStyle: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-          color: Theme.of(context).colorScheme.tertiary,
-        ),
+            textStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
           ),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1.0),
           child: Container(
-        color: Colors.grey[600],
-        height: 1.0,
+            color: Colors.grey[600],
+            height: 1.0,
           ),
         ),
       ),
@@ -136,7 +142,8 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: Container(
-              margin: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 5.0,top:5.0),
+              margin: const EdgeInsets.only(
+                  left: 10.0, right: 10.0, bottom: 5.0, top: 5.0),
               child: _buildMessageList(),
             ),
           ),
@@ -201,6 +208,7 @@ class _ChatPageState extends State<ChatPage> {
             messageId: doc.id,
             userId: data["senderID"],
             onReply: selectMessageToReply,
+            onReact: (messageId, emoji) => addReaction(messageId, emoji),
             quotedMessageText: data['quotedMessageText'],
           ),
         ],
@@ -236,50 +244,48 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
         Row(
-            children: [
+          children: [
             Container(
               decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context).colorScheme.tertiaryContainer,
+                shape: BoxShape.circle,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
               ),
               child: IconButton(
-              icon: Icon(
-                _isCode ? Icons.code_off : Icons.code,
-                color: Theme.of(context).colorScheme.tertiary,
-              ),
-              onPressed: () {
-                setState(() {
-                _isCode = !_isCode;
-                });
-              },
+                icon: Icon(
+                  _isCode ? Icons.code_off : Icons.code,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isCode = !_isCode;
+                  });
+                },
               ),
             ),
             const SizedBox(width: 10.0),
             Expanded(
               child: ChatTextField(
-              controller: _messageController,
-              hintText: "Message @${widget.receiverName}",
-              obscureText: false,
-              focusNode: chatFocusNode,
+                controller: _messageController,
+                hintText: "Message @${widget.receiverName}",
+                obscureText: false,
+                focusNode: chatFocusNode,
               ),
             ),
             const SizedBox(width: 10.0),
             Container(
               decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context).colorScheme.tertiaryContainer,
+                shape: BoxShape.circle,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
               ),
               child: IconButton(
-              onPressed: sendMessage,
-              icon: Icon(
-                Icons.arrow_upward,
-                color: Theme.of(context).colorScheme.tertiary,
+                onPressed: sendMessage,
+                icon: Icon(
+                  Icons.arrow_upward,
+                  color: Theme.of(context).colorScheme.tertiary,
+                ),
               ),
-              ),
-  
             ),
             const SizedBox(width: 5.0),
-
           ],
         ),
       ],
