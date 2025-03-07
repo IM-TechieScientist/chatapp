@@ -34,6 +34,60 @@ class ChatBubble extends StatelessWidget {
           child: Wrap(
             children: [
               ListTile(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        onReact(messageId, '👍');
+                      },
+                      child: Text(
+                        '👍',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        onReact(messageId, '❤️');
+                      },
+                      child: Text(
+                        '❤️',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 15),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        onReact(messageId, '😂');
+                      },
+                      child: Text(
+                        '😂',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(
+                  color: Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
+                ),
+              ),
+              ListTile(
                 leading: Icon(
                   Icons.reply,
                   color: Theme.of(context).colorScheme.tertiary,
@@ -51,61 +105,6 @@ class ChatBubble extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(
-                  Icons.thumb_up,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                title: ChatText(
-                  text: 'Thumbs Up',
-                  size: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  onReact(messageId, '👍');
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.favorite,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                title: ChatText(
-                  text: 'Heart',
-                  size: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  onReact(messageId, '❤️');
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.emoji_emotions,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                title: ChatText(
-                  text: 'Joy',
-                  size: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.tertiary,
-                ),
-                onTap: () {
-                  Navigator.pop(context);
-                  onReact(messageId, '😂');
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(
-                  color:
-                      Theme.of(context).colorScheme.tertiary.withOpacity(0.3),
-                ),
-              ),
-              ListTile(
-                leading: Icon(
                   Icons.close,
                   color: Theme.of(context).colorScheme.tertiary,
                 ),
@@ -116,7 +115,7 @@ class ChatBubble extends StatelessWidget {
                   color: Theme.of(context).colorScheme.tertiary,
                 ),
                 onTap: () => Navigator.pop(context),
-              )
+              ),
             ],
           ),
         );
@@ -135,6 +134,11 @@ class ChatBubble extends StatelessWidget {
       onLongPress: () {
         if (!isCurrentUser) {
           _showOptions(context, messageId, userId);
+        }
+      },
+      onHorizontalDragEnd: (details) {
+        if (details.primaryVelocity! > 0 && !isCurrentUser) {
+          onReply(messageId, data['message']);
         }
       },
       child: Container(
@@ -203,9 +207,12 @@ class ChatBubble extends StatelessWidget {
               Wrap(
                 spacing: 4.0,
                 children: reactions
-                    .map((reaction) => Text(
-                          reaction.emoji,
-                          style: TextStyle(fontSize: 20),
+                    .map((reaction) => GestureDetector(
+                          onTap: () => onReact(messageId, reaction.emoji),
+                          child: Text(
+                            reaction.emoji,
+                            style: TextStyle(fontSize: 20),
+                          ),
                         ))
                     .toList(),
               ),

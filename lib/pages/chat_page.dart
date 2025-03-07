@@ -109,9 +109,9 @@ class _ChatPageState extends State<ChatPage> {
     }
   }
 
-  void addReaction(String messageId, String emoji) async {
+  void toggleReaction(String messageId, String emoji) async {
     String senderId = _authService.getCurrentUser()!.uid;
-    await _chatService.addReaction(senderId, widget.receiverID, messageId, emoji);
+    await _chatService.toggleReaction(senderId, widget.receiverID, messageId, emoji);
   }
 
   @override
@@ -208,7 +208,7 @@ class _ChatPageState extends State<ChatPage> {
             messageId: doc.id,
             userId: data["senderID"],
             onReply: selectMessageToReply,
-            onReact: (messageId, emoji) => addReaction(messageId, emoji),
+            onReact: (messageId, emoji) => toggleReaction(messageId, emoji),
             quotedMessageText: data['quotedMessageText'],
           ),
         ],

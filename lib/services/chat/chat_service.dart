@@ -130,7 +130,7 @@ class ChatService extends ChangeNotifier {
     });
   }
 
-  Future<void> addReaction(String userId1, String userId2, String messageId, String emoji) async {
+  Future<void> toggleReaction(String userId1, String userId2, String messageId, String emoji) async {
     final currentUser = _auth.currentUser;
     final reaction = Reaction(emoji: emoji, userId: currentUser!.uid);
 
@@ -160,7 +160,15 @@ class ChatService extends ChangeNotifier {
       }
 
       List<dynamic> reactions = snapshot.data()!['reactions'] ?? [];
-      reactions.add(reaction.toMap());
+      final existingReaction = reactions.firstWhere(
+          (r) => r['userId'] == currentUser.uid && r['emoji'] == emoji,
+          orElse: () => null);
+
+      if (existingReaction != null) {
+        reactions.remove(existingReaction);
+      } else {
+        reactions.add(reaction.toMap());
+      }
 
       transaction.update(messageRef, {'reactions': reactions});
     });
